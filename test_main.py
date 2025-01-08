@@ -5,43 +5,36 @@ client = TestClient(app)
 
 def test_get_version():
     response = client.get("/version")
-    assert response.status_code == 200
-    assert response.json() == {"version": "1.0.0"}
+    assert response.status_code == 200, "Status code mismatch"
+    assert response.json() == {"version": "1.0.0"}, "Version mismatch"
 
-def test_prime():
+def test_prime_numbers():
     test_cases = [
+        (0, False),
         (1, False),
         (2, True),
-        (3, True),
-        (4, False),
-        (29, True),
-        (-5, False),
-        (997, True),
-        (0, False),
+        (9, False),
+        (17, True),
+        (25, False),
+        (89, True),
+        (-11, False),
+        (1001, False),
     ]
-    
-    for value, expected in test_cases:
-        response = client.post("/check_prime", json={"value": value})
-        assert response.status_code == 200
-        assert response.json() == {"is_prime": expected}
+    for number, expected in test_cases:
+        response = client.post("/check_prime", json={"value": number})
+        assert response.status_code == 200, f"Status code mismatch for value {number}"
+        assert response.json() == {"is_prime": expected}, f"Prime check mismatch for value {number}"
 
-def test_prime_non_integer():
-    response = client.post("/check_prime", json={"value": "abc"})
-    assert response.status_code == 422
+def test_invalid_inputs():
+    invalid_inputs = ["hello", 3.5, None, {}, []]
+    for invalid in invalid_inputs:
+        response = client.post("/check_prime", json={"value": invalid})
+        assert response.status_code == 422, f"Expected 422 for input {invalid}"
 
-if __name__ == "__main__":
-    print("Running tests...")
-    
-    try:
-        test_get_version()
-        print("test_get_version passed")
-        
-        test_prime()
-        print("test_prime passed")
-        
-        test_prime_non_integer()
-        print("test_prime_non_integer passed")
-        
-        print("All tests passed successfully!")
-    except AssertionError as e:
-        print(f"Test failed: {e}")
+# Run tests
+def run_tests():
+    test_get_version()
+    test_prime_numbers()
+    test_invalid_inputs()
+
+run_tests()
