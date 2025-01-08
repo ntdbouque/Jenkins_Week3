@@ -1,1 +1,1 @@
-em nop bai jenk nha anh iu, cho em 10 diem
+em nop bai jenkin nha anh iu, cho em 10 diem a
