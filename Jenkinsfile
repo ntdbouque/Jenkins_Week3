@@ -10,6 +10,7 @@ pipeline {
                 token: 'duy',
                 printContributedVariables: true,
                 printPostContent: true
+                allowSeveralTriggersPerBuild: true
             )
         }
 
