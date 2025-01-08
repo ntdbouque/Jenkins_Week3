@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 import uvicorn
 
 app = FastAPI()
-#test_check_jenkins
+
 @app.get("/version")
 def get_version():
     return {"version": "1.0.0"}
