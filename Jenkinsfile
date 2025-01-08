@@ -9,8 +9,8 @@ pipeline {
                 causeString: 'Triggered by webhook',
                 token: 'duy',
                 printContributedVariables: true,
-                printPostContent: true
-                allowSeveralTriggersPerBuild: true
+                printPostContent: true,
+                allowSeveralTriggersPerBuild: false
             )
         }
 
